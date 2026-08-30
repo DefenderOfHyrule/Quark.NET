@@ -1,0 +1,99 @@
+name: Desktop Build
+on:
+  workflow_dispatch:
+  push:
+    tags:
+      - "v*"
+permissions:
+  contents: write
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Setup Dotnet
+        uses: awalsh128/cache-apt-pkgs-action@v1.6.3
+        with:
+          packages: dotnet-sdk-10.0
+          add-repository: ppa:dotnet/backports
+
+      - name: Setup rcodesign
+        uses: taiki-e/cache-cargo-install-action@v3
+        with:
+          tool: apple-codesign
+
+      - name: Build
+        env:
+          APPLE_P12_B64: ${{ secrets.APPLE_P12_B64 }}
+          APPLE_P12_PW_TXT: ${{ secrets.APPLE_P12_PW }}
+          API_KEY: ${{ secrets.APP_STORE_API_KEY }}
+        run: |
+          if [ -n "$APPLE_P12_B64" ]; then
+            echo "$APPLE_P12_B64" | base64 --decode > /tmp/key.p12
+            echo "$APPLE_P12_PW_TXT" > /tmp/p12pw
+            export APPLE_P12=/tmp/key.p12
+            export APPLE_P12_PW=/tmp/p12pw
+          else
+            echo "APPLE_P12_B64 secret not set - skipping codesigning."
+          fi
+
+          if [ -n "$API_KEY" ]; then
+            echo "$API_KEY" > /tmp/app_store_key.json
+            export APPLE_NOTARY_KEY=/tmp/app_store_key.json
+          else
+            echo "APP_STORE_API_KEY secret not set - skipping notarization."
+          fi
+
+          chmod +x build-releases.sh
+          ./build-releases.sh
+
+      - name: Upload Windows (x86_64) artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Windows (x86_64)
+          path: ./releases/Quark-win-x64.exe
+          archive: false
+
+      - name: Upload Windows (arm64) artifact
+        if: hashFiles('./releases/Quark-win-arm64.exe') != ''
+        uses: actions/upload-artifact@v7
+        with:
+          name: Windows (arm64)
+          path: ./releases/Quark-win-arm64.exe
+          archive: false
+
+      - name: Upload macOS (universal) artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: macOS (universal)
+          path: ./releases/Quark-osx.zip
+          archive: false
+
+      - name: Upload Linux (x86_64) artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Linux x86_64
+          path: ./releases/Quark-linux-x64
+          archive: false
+
+      - name: Upload Linux (arm64) artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: Linux (arm64)
+          path: ./releases/Quark-linux-arm64
+          archive: false
+
+      - name: Publish to draft release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          name: Quark.NET ${{ github.ref_name }}
+          draft: true
+          generate_release_notes: true
+          files: |
+            ${{ github.workspace }}/releases/Quark-win-x64.exe
+            ${{ github.workspace }}/releases/Quark-win-arm64.exe
+            ${{ github.workspace }}/releases/Quark-osx.zip
+            ${{ github.workspace }}/releases/Quark-linux-x64
+            ${{ github.workspace }}/releases/Quark-linux-arm64

@@ -1,0 +1,759 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        x:Class="Quark.MainWindow"
+        Title="Quark"
+        Icon="avares://Quark.NET/Assets/icon.png"
+        Width="940"
+        Height="480"
+        MinWidth="680"
+        MinHeight="400"
+        CanResize="True"
+        Background="#0F1117">
+
+    <Grid RowDefinitions="Auto,Auto,*,Auto,Auto">
+
+        <Border Grid.Row="0"
+                Background="{DynamicResource CardBg}"
+                BorderBrush="{DynamicResource CardBorder}"
+                BorderThickness="0,0,0,1"
+                Padding="16,10">
+            <Grid ColumnDefinitions="Auto,*,Auto,Auto,Auto,Auto,Auto">
+
+                <StackPanel Orientation="Horizontal" Spacing="10" VerticalAlignment="Center">
+                    <Border Width="30" Height="30">
+                        <Image Source="Assets/quark.png"
+                               Width="37" Height="37"
+                               Stretch="Uniform"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel Spacing="1" VerticalAlignment="Center">
+                        <TextBlock Text="Quark"
+                                   FontSize="14" FontWeight="Bold"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock x:Name="VersionLabel"
+                                   Text="v1.0.0"
+                                   FontSize="10"
+                                   Foreground="{DynamicResource TextMuted}"/>
+                    </StackPanel>
+                </StackPanel>
+
+                
+                <Panel Grid.Column="1"
+                       HorizontalAlignment="Center"
+                       VerticalAlignment="Center">
+
+                    
+                    <Button x:Name="StatusPillButton"
+                            Padding="0"
+                            Background="Transparent"
+                            BorderThickness="0">
+                        <Border Padding="14,5"
+                                CornerRadius="14"
+                                Background="{DynamicResource PillBg}"
+                                BorderBrush="{DynamicResource CardBorder}"
+                                BorderThickness="1">
+                            <StackPanel Orientation="Horizontal" Spacing="5">
+                                <TextBlock x:Name="USBStatusLabel"
+                                           Text="Initializing..."
+                                           FontSize="12"
+                                           Foreground="{DynamicResource TextMuted}"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center"/>
+                                <TextBlock x:Name="PillChevron"
+                                           Text="▾"
+                                           FontSize="9"
+                                           Foreground="{DynamicResource TextMuted}"
+                                           VerticalAlignment="Center"
+                                           IsVisible="False"/>
+                            </StackPanel>
+                        </Border>
+                    </Button>
+                    <Popup x:Name="ClientDropdown"
+                           PlacementMode="Bottom"
+                           IsLightDismissEnabled="True">
+                        <Border Background="{DynamicResource CardBg}"
+                                BorderBrush="{DynamicResource CardBorder}"
+                                BorderThickness="1"
+                                CornerRadius="10"
+                                Padding="4,4"
+                                MinWidth="220">
+                            <ItemsControl x:Name="ClientList">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border Padding="12,6" CornerRadius="7">
+                                            <TextBlock Text="{Binding}"
+                                                       FontSize="12"
+                                                       Foreground="{DynamicResource TextPrimary}"/>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </Border>
+                    </Popup>
+
+                    
+                    <Border x:Name="InfoBannerBorder"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="14,5"
+                            CornerRadius="14"
+                            Background="#1B3A2A"
+                            BorderBrush="{DynamicResource AccentGreen}"
+                            BorderThickness="1"
+                            IsVisible="False"
+                            ZIndex="1">
+                        <TextBlock x:Name="InfoBanner"
+                                   Text=""
+                                   FontSize="12"
+                                   Foreground="{DynamicResource AccentGreen}"/>
+                    </Border>
+
+                    
+                    <Border x:Name="UpdateBannerBorder"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="12,5"
+                            CornerRadius="14"
+                            Background="{DynamicResource UpdateBannerBg}"
+                            BorderBrush="{DynamicResource UpdateAccent}"
+                            BorderThickness="1"
+                            IsVisible="False"
+                            ZIndex="2">
+                        <StackPanel Orientation="Horizontal" Spacing="8" VerticalAlignment="Center">
+                            <TextBlock x:Name="UpdateBannerLabel"
+                                       Text=""
+                                       FontSize="12"
+                                       Foreground="{DynamicResource UpdateBannerFg}"
+                                       VerticalAlignment="Center"/>
+                            <Button x:Name="UpdateNowButton"
+                                    Content="Update now"
+                                    FontSize="11"
+                                    FontWeight="SemiBold"
+                                    Padding="10,3"
+                                    Background="{DynamicResource UpdateAccent}"
+                                    Foreground="White"
+                                    CornerRadius="8"/>
+                            <Button x:Name="UpdateDismissButton"
+                                    Content="✕"
+                                    FontSize="10"
+                                    Padding="5,3"
+                                    Background="Transparent"
+                                    Foreground="{DynamicResource UpdateBannerFg}"
+                                    BorderThickness="0"
+                                    CornerRadius="8"/>
+                        </StackPanel>
+                    </Border>
+
+                </Panel>
+
+                <TextBlock x:Name="IPLabel"
+                           Grid.Column="2"
+                           Text="IP: --"
+                           FontSize="11"
+                           Foreground="{DynamicResource TextMuted}"
+                           VerticalAlignment="Center"
+                           Margin="0,0,12,0"/>
+
+                <Button x:Name="SettingsButton"
+                        Grid.Column="3"
+                        Padding="7,3"
+                        Margin="0,0,6,0"
+                        Background="Transparent"
+                        Foreground="{DynamicResource TextMuted}"
+                        CornerRadius="6"
+                        ToolTip.Tip="Settings">
+
+                    <Image x:Name="SettingsIcon"
+                           Source="avares://Quark.NET/Assets/cog.png"
+                           Width="18"
+                           Height="18"
+                           Stretch="Uniform"/>
+                </Button>
+
+                <Button x:Name="ThemeToggleButton"
+                        Grid.Column="4"
+                        Padding="7,3"
+                        Margin="0,0,6,0"
+                        Background="Transparent"
+                        Foreground="{DynamicResource TextMuted}"
+                        CornerRadius="6"
+                        ToolTip.Tip="Toggle light/dark theme">
+
+                    <Image x:Name="ThemeIcon"
+                           Source="avares://Quark.NET/Assets/sun.png"
+                           Width="18"
+                           Height="18"
+                           Stretch="Uniform"/>
+                </Button>
+
+                <Button x:Name="CreditsButton"
+                        Grid.Column="5"
+                        Content="?"
+                        FontSize="13"
+                        FontWeight="Bold"
+                        Padding="7,3"
+                        Margin="0,0,6,0"
+                        Background="Transparent"
+                        Foreground="{DynamicResource TextMuted}"
+                        CornerRadius="6"
+                        ToolTip.Tip="About Quark"/>
+
+                <Button x:Name="ReconnectUSBButton"
+                        Grid.Column="6"
+                        Content="↺ USB"
+                        IsVisible="False"
+                        FontSize="11"
+                        Padding="10,4"
+                        Background="{DynamicResource AccentGreen}"
+                        Foreground="White"
+                        CornerRadius="7"/>
+            </Grid>
+        </Border>
+
+        <StackPanel Grid.Row="1">
+
+            <Border x:Name="UdevHintBorder"
+                    IsVisible="False"
+                    Background="{DynamicResource CardInner}"
+                    BorderBrush="{DynamicResource AccentRed}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="12,10,12,0"
+                    Padding="14,10">
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                    <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock Text="udev rule required"
+                                   FontSize="12" FontWeight="Medium"
+                                   Foreground="{DynamicResource AccentRed}"/>
+                        <TextBlock Text="A udev rule must be added once to allow Quark to access Leaflet over USB without root."
+                                   FontSize="10"
+                                   Foreground="{DynamicResource TextMuted}"
+                                   TextWrapping="Wrap"/>
+                    </StackPanel>
+                    <Button x:Name="InstallUdevButton"
+                            Grid.Column="1"
+                            Content="⬇ Setup udev"
+                            FontSize="11" FontWeight="SemiBold"
+                            Padding="10,6"
+                            Margin="10,0,8,0"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource AccentRed}"
+                            Foreground="White"
+                            CornerRadius="6"/>
+                    <Button x:Name="DismissUdevButton"
+                            Grid.Column="2"
+                            Content="✕"
+                            FontSize="10"
+                            Padding="6,4"
+                            VerticalAlignment="Center"
+                            Background="Transparent"
+                            Foreground="{DynamicResource TextMuted}"
+                            BorderThickness="0"
+                            CornerRadius="6"/>
+                </Grid>
+            </Border>
+
+            <Border x:Name="LibusbKHintBorder"
+                    IsVisible="False"
+                    Background="{DynamicResource CardInner}"
+                    BorderBrush="{DynamicResource AccentRed}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Margin="12,10,12,0"
+                    Padding="14,10">
+                <Grid ColumnDefinitions="*,Auto,Auto">
+                    <StackPanel Grid.Column="0" Spacing="2" VerticalAlignment="Center">
+                        <TextBlock x:Name="LibusbKHintTitle"
+                                   Text="libusbK driver required"
+                                   FontSize="12" FontWeight="Medium"
+                                   Foreground="{DynamicResource AccentRed}"/>
+                        <TextBlock x:Name="LibusbKHintBody"
+                                   Text="The libusbK driver must be installed once before Quark can talk to Leaflet over USB."
+                                   FontSize="10"
+                                   Foreground="{DynamicResource TextMuted}"
+                                   TextWrapping="Wrap"/>
+                        <ProgressBar x:Name="LibusbKInstallProgress"
+                                     IsIndeterminate="True"
+                                     IsVisible="False"
+                                     Height="3"
+                                     Margin="0,4,0,0"
+                                     CornerRadius="2"
+                                     Foreground="{DynamicResource AccentRed}"
+                                     Background="{DynamicResource CardInnerBorder}"/>
+                    </StackPanel>
+                    <Button x:Name="InstallLibusbKButton"
+                            Grid.Column="1"
+                            Content="⬇ Install Driver"
+                            FontSize="11" FontWeight="SemiBold"
+                            Padding="10,6"
+                            Margin="10,0,8,0"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource AccentRed}"
+                            Foreground="White"
+                            CornerRadius="6"
+                            ToolTip.Tip="Installs the required driver via the embedded driver package (UAC prompt may appear)"/>
+                    <Button x:Name="ZadigFallbackButton"
+                            Grid.Column="2"
+                            Content="Get Zadig"
+                            FontSize="10"
+                            Padding="8,6"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource ButtonBg}"
+                            Foreground="{DynamicResource TextMuted}"
+                            CornerRadius="6"
+                            ToolTip.Tip="Open zadig.akeo.ie in your browser as an alternative"/>
+                </Grid>
+            </Border>
+
+        </StackPanel>
+
+        <Grid Grid.Row="2" ColumnDefinitions="*,Auto" Margin="12,10,12,10">
+
+            <Border Grid.Column="0"
+                    Margin="0,0,10,0"
+                    Background="{DynamicResource CardBg}"
+                    BorderBrush="{DynamicResource CardBorder}"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="12,10">
+                <Grid RowDefinitions="Auto,*">
+
+                    <Grid Grid.Row="0" ColumnDefinitions="*,Auto,Auto" Margin="0,0,0,8">
+                        <TextBlock Text="Log"
+                                   FontSize="12"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimary}"
+                                   VerticalAlignment="Center"/>
+                        <ToggleButton x:Name="ShowLogsToggle"
+                                      Grid.Column="1"
+                                      Content="Hide"
+                                      IsChecked="True"
+                                      FontSize="10"
+                                      Padding="8,3"
+                                      Margin="0,0,5,0"
+                                      Background="{DynamicResource ButtonBg}"
+                                      CornerRadius="6"/>
+                        <Button x:Name="ClearLogButton"
+                                Grid.Column="2"
+                                Content="Clear"
+                                FontSize="10"
+                                Padding="8,3"
+                                Background="{DynamicResource ButtonBg}"
+                                Foreground="{DynamicResource TextPrimary}"
+                                CornerRadius="6"/>
+                    </Grid>
+
+                    <TextBox x:Name="LogArea"
+                             Grid.Row="1"
+                             IsReadOnly="True"
+                             AcceptsReturn="True"
+                             TextWrapping="Wrap"
+                             FontFamily="Consolas,Menlo,monospace"
+                             FontSize="11"
+                             Background="{DynamicResource CardInner}"
+                             BorderBrush="{DynamicResource CardInnerBorder}"
+                             BorderThickness="1"
+                             CornerRadius="6"
+                             Foreground="{DynamicResource LogFg}"
+                             Padding="8"/>
+                </Grid>
+            </Border>
+
+            <Border Grid.Column="1"
+                    Width="320"
+                    MinWidth="220"
+                    Background="{DynamicResource CardBg}"
+                    BorderBrush="{DynamicResource CardBorder}"
+                    BorderThickness="1"
+                    CornerRadius="10"
+                    Padding="12,10">
+                <Grid RowDefinitions="Auto,*,Auto">
+
+                    <TextBlock Grid.Row="0"
+                               Text="Content Paths"
+                               FontSize="12"
+                               FontWeight="SemiBold"
+                               Foreground="{DynamicResource TextPrimary}"
+                               Margin="0,0,0,8"/>
+
+                    <ListBox x:Name="PathList"
+                             Grid.Row="1"
+                             SelectionMode="Multiple"
+                             Background="{DynamicResource CardInner}"
+                             BorderBrush="{DynamicResource CardInnerBorder}"
+                             BorderThickness="1"
+                             CornerRadius="6"
+                             FontSize="12"
+                             Foreground="{DynamicResource TextPrimary}"/>
+
+                    <Grid Grid.Row="2"
+                          ColumnDefinitions="*,6,*"
+                          Margin="0,8,0,0">
+                        <Button x:Name="NewPathButton"
+                                Grid.Column="0"
+                                Content="+ Add"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                FontSize="11"
+                                Padding="0,5"
+                                Background="{DynamicResource AccentGreen}"
+                                Foreground="White"
+                                CornerRadius="6"/>
+                        <Button x:Name="PathRemoveButton"
+                                Grid.Column="2"
+                                Content="Remove"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                FontSize="11"
+                                Padding="0,5"
+                                Background="{DynamicResource ButtonBg}"
+                                Foreground="{DynamicResource TextPrimary}"
+                                CornerRadius="6"/>
+                    </Grid>
+                </Grid>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3"
+                Background="{DynamicResource CardBg}"
+                BorderBrush="{DynamicResource CardBorder}"
+                BorderThickness="1"
+                CornerRadius="10"
+                Margin="12,0,12,8"
+                Padding="14,8">
+            <Grid RowDefinitions="Auto,Auto">
+
+                <TextBlock x:Name="TransferIdleLabel"
+                           Grid.Row="0"
+                           Text="Select files to install to begin!"
+                           FontSize="11"
+                           FontFamily="Consolas,Menlo,monospace"
+                           Foreground="{DynamicResource TextMuted}"/>
+
+                <ItemsControl x:Name="TransferList"
+                              Grid.Row="0"
+                              IsVisible="False">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Grid RowDefinitions="Auto,Auto" Margin="0,0,0,6">
+                                <Grid Grid.Row="0" ColumnDefinitions="*,Auto" Margin="0,0,0,3">
+                                    <TextBlock Grid.Column="0"
+                                               Text="{Binding Label}"
+                                               FontSize="11"
+                                               FontFamily="Consolas,Menlo,monospace"
+                                               Foreground="{DynamicResource AccentGreen}"
+                                               TextTrimming="CharacterEllipsis"/>
+                                    <TextBlock Grid.Column="1"
+                                               Text="{Binding PctLabel}"
+                                               FontSize="11"
+                                               Foreground="{DynamicResource TextMuted}"
+                                               Margin="10,0,0,0"/>
+                                </Grid>
+                                <ProgressBar Grid.Row="1"
+                                             Height="4"
+                                             Minimum="0"
+                                             Maximum="1"
+                                             Value="{Binding Progress}"
+                                             CornerRadius="2"
+                                             Foreground="{Binding BarColor}"
+                                             Background="{DynamicResource CardInner}"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="4"
+                Height="3"
+                Background="{DynamicResource AccentGreen}"
+                Opacity="0.25"/>
+
+        
+        <Panel Grid.Row="0" Grid.RowSpan="5"
+               x:Name="ConnectionOverlay"
+               IsVisible="False"
+               ZIndex="20">
+            <Border Background="#CC000000"/>
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource CardBg}"
+                    BorderBrush="{DynamicResource CardBorder}"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="36,28"
+                    MinWidth="300">
+                <StackPanel Spacing="18" HorizontalAlignment="Center">
+
+                    <TextBlock x:Name="ConnectionSpinner"
+                               Text="⠋"
+                               FontSize="40"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource AccentGreen}"/>
+
+                    <StackPanel Spacing="5">
+                        <TextBlock x:Name="ConnectionTitleLabel"
+                                   Text="Waiting for Leaflet"
+                                   FontSize="14"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock x:Name="ConnectionMessageLabel"
+                                   Text=""
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   TextWrapping="Wrap"
+                                   MaxWidth="260"
+                                   Foreground="{DynamicResource TextMuted}"/>
+                    </StackPanel>
+
+                    <Border Height="1" Background="{DynamicResource CardBorder}"/>
+
+                    <StackPanel x:Name="ConnectionButtonPanel" Spacing="7">
+                        <Button x:Name="ReconnectButton"
+                                Content="Retry"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Padding="0,8"
+                                Background="{DynamicResource AccentGreen}"
+                                Foreground="White"
+                                CornerRadius="8"
+                                FontWeight="SemiBold"/>
+                        <Button x:Name="NetworkOnlyButton"
+                                Content="Network only"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Padding="0,8"
+                                Background="{DynamicResource ButtonBg}"
+                                Foreground="{DynamicResource TextPrimary}"
+                                CornerRadius="8"/>
+                        <Button x:Name="ExitButton"
+                                Content="Exit"
+                                HorizontalAlignment="Stretch"
+                                HorizontalContentAlignment="Center"
+                                Padding="0,8"
+                                Background="#2A1A1A"
+                                Foreground="#EF5350"
+                                CornerRadius="8"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </Panel>
+
+        
+        <Panel Grid.Row="0" Grid.RowSpan="5"
+               x:Name="CreditsOverlay"
+               IsVisible="False"
+               ZIndex="19">
+            <Border Background="#CC000000"/>
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource CardBg}"
+                    BorderBrush="{DynamicResource CardBorder}"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="36,28"
+                    MinWidth="340"
+                    MaxWidth="420">
+                <StackPanel Spacing="16">
+
+                    <StackPanel Spacing="4" HorizontalAlignment="Center">
+                        <TextBlock Text="Quark.NET"
+                                   FontSize="20"
+                                   FontWeight="Bold"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock x:Name="CreditsVersionLabel"
+                                   Text="v1.0.0"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{DynamicResource AccentGreen}"/>
+                        <TextBlock Text="Leaflet's USB/network host client"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   Foreground="{DynamicResource TextMuted}"/>
+                    </StackPanel>
+
+                    <Border Height="1" Background="{DynamicResource CardBorder}"/>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Based on"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextMuted}"/>
+                        <TextBlock Text="Quark by XorTroll (Java/JavaFX)"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock Text="Goldleaf by XorTroll"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                        <TextBlock Text="Leaflet by DefenderOfHyrule"
+                                   FontSize="12"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                    </StackPanel>
+
+                    <Border Height="1" Background="{DynamicResource CardBorder}"/>
+
+                    <StackPanel Spacing="8">
+                        <TextBlock Text="Built with"
+                                   FontSize="11"
+                                   FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextMuted}"/>
+                        <TextBlock Text="Avalonia UI  ·  .NET 10  ·  libusb-1.0"
+                                   FontSize="12"
+                                   TextWrapping="Wrap"
+                                   Foreground="{DynamicResource TextPrimary}"/>
+                    </StackPanel>
+
+                    <Border Height="1" Background="{DynamicResource CardBorder}"/>
+
+                    
+                    <Button x:Name="CreditsUpdateButton"
+                            IsVisible="False"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Padding="0,8"
+                            Background="{DynamicResource UpdateAccent}"
+                            Foreground="White"
+                            CornerRadius="8"
+                            FontWeight="SemiBold"/>
+
+                    <Button x:Name="CreditsCloseButton"
+                            Content="Close"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Padding="0,8"
+                            Background="{DynamicResource AccentGreen}"
+                            Foreground="White"
+                            CornerRadius="8"
+                            FontWeight="SemiBold"/>
+                </StackPanel>
+            </Border>
+        </Panel>
+
+        <Panel Grid.Row="0" Grid.RowSpan="5"
+               x:Name="SettingsOverlay"
+               IsVisible="False"
+               ZIndex="18">
+            <Border Background="#CC000000"/>
+            <Border HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{DynamicResource CardBg}"
+                    BorderBrush="{DynamicResource CardBorder}"
+                    BorderThickness="1"
+                    CornerRadius="14"
+                    Padding="28,24"
+                    MinWidth="340" MaxWidth="400">
+                <StackPanel Spacing="16">
+
+                    <TextBlock Text="Settings"
+                               FontSize="16" FontWeight="Bold"
+                               HorizontalAlignment="Center"
+                               Foreground="{DynamicResource TextPrimary}"/>
+
+                    <Border Height="1" Background="{DynamicResource CardBorder}"/>
+
+                    <Border Background="{DynamicResource CardInner}"
+                            BorderBrush="{DynamicResource CardInnerBorder}"
+                            BorderThickness="1" CornerRadius="8" Padding="12,8">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="2" VerticalAlignment="Center">
+                                <TextBlock Text="Minimize to tray"
+                                           FontSize="12" FontWeight="Medium"
+                                           Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock Text="Closing the window keeps Quark running."
+                                           FontSize="10"
+                                           Foreground="{DynamicResource TextMuted}"/>
+                            </StackPanel>
+                            <ToggleSwitch x:Name="MinimizeToTrayToggle"
+                                          Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,0,0"
+                                          OnContent="" OffContent=""/>
+                        </Grid>
+                    </Border>
+
+                    <Border Background="{DynamicResource CardInner}"
+                            BorderBrush="{DynamicResource CardInnerBorder}"
+                            BorderThickness="1" CornerRadius="8" Padding="12,8">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="2" VerticalAlignment="Center">
+                                <TextBlock Text="Launch on boot"
+                                           FontSize="12" FontWeight="Medium"
+                                           Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock Text="Start Quark automatically when you log in."
+                                           FontSize="10"
+                                           Foreground="{DynamicResource TextMuted}"/>
+                            </StackPanel>
+                            <ToggleSwitch x:Name="LaunchOnBootToggle"
+                                          Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,0,0"
+                                          OnContent="" OffContent=""/>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="StartMinimizedBorder"
+                            Background="{DynamicResource CardInner}"
+                            BorderBrush="{DynamicResource CardInnerBorder}"
+                            BorderThickness="1" CornerRadius="8" Padding="12,8"
+                            Margin="16,0,0,0">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="2" VerticalAlignment="Center">
+                                <TextBlock Text="Start minimized to tray"
+                                           FontSize="12" FontWeight="Medium"
+                                           Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock Text="Opens in the background instead of showing the window."
+                                           FontSize="10"
+                                           Foreground="{DynamicResource TextMuted}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <ToggleSwitch x:Name="StartMinimizedOnBootToggle"
+                                          Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,0,0"
+                                          OnContent="" OffContent=""/>
+                        </Grid>
+                    </Border>
+
+                    <Border x:Name="AppLauncherBorder"
+                            IsVisible="False"
+                            Background="{DynamicResource CardInner}"
+                            BorderBrush="{DynamicResource CardInnerBorder}"
+                            BorderThickness="1" CornerRadius="8" Padding="12,8">
+                        <Grid ColumnDefinitions="*,Auto">
+                            <StackPanel Spacing="2" VerticalAlignment="Center">
+                                <TextBlock Text="Add to app launcher"
+                                           FontSize="12" FontWeight="Medium"
+                                           Foreground="{DynamicResource TextPrimary}"/>
+                                <TextBlock Text="Shows Quark as an app in your launcher/shelf, with an icon."
+                                           FontSize="10"
+                                           Foreground="{DynamicResource TextMuted}"
+                                           TextWrapping="Wrap"/>
+                            </StackPanel>
+                            <ToggleSwitch x:Name="AppLauncherToggle"
+                                          Grid.Column="1"
+                                          VerticalAlignment="Center"
+                                          Margin="10,0,0,0"
+                                          OnContent="" OffContent=""/>
+                        </Grid>
+                    </Border>
+
+                    <Border Height="1" Background="{DynamicResource CardBorder}"/>
+
+                    <Button x:Name="SettingsCloseButton"
+                            Content="Close"
+                            HorizontalAlignment="Stretch"
+                            HorizontalContentAlignment="Center"
+                            Padding="0,8"
+                            Background="{DynamicResource AccentGreen}"
+                            Foreground="White"
+                            CornerRadius="8"
+                            FontWeight="SemiBold"/>
+                </StackPanel>
+            </Border>
+        </Panel>
+
+    </Grid>
+</Window>

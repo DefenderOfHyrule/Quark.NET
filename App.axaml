@@ -1,0 +1,39 @@
+<Application xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             x:Class="Quark.App"
+             RequestedThemeVariant="Dark">
+    <Application.Styles>
+        <FluentTheme />
+    </Application.Styles>
+    <Application.Resources>
+        <SolidColorBrush x:Key="AccentGreen"        Color="#4CAF50"/>
+        <SolidColorBrush x:Key="PillBg"             Color="#1A1F2E"/>
+        <SolidColorBrush x:Key="CardBg"             Color="#181C27"/>
+        <SolidColorBrush x:Key="CardBorder"         Color="#252A38"/>
+        <SolidColorBrush x:Key="CardInner"          Color="#0D1017"/>
+        <SolidColorBrush x:Key="CardInnerBorder"    Color="#1E2330"/>
+        <SolidColorBrush x:Key="ButtonBg"           Color="#252A38"/>
+        <SolidColorBrush x:Key="TextPrimary"        Color="#ECEFF1"/>
+        <SolidColorBrush x:Key="TextMuted"          Color="#607D8B"/>
+        <SolidColorBrush x:Key="LogFg"              Color="#6A8A9A"/>
+        <SolidColorBrush x:Key="UpdateBannerBg"     Color="#0D1F35"/>
+        <SolidColorBrush x:Key="UpdateBannerFg"     Color="#64B5F6"/>
+        <SolidColorBrush x:Key="UpdateAccent" Color="#42A5F5"/>
+    </Application.Resources>
+
+    <TrayIcon.Icons>
+        <TrayIcons>
+            <TrayIcon Icon="avares://Quark.NET/Assets/icon.png"
+                      ToolTipText="Quark"
+                      Clicked="OnTrayIconClicked">
+                <TrayIcon.Menu>
+                    <NativeMenu>
+                        <NativeMenuItem Header="Show Quark" Click="OnTrayShow"/>
+                        <NativeMenuItemSeparator/>
+                        <NativeMenuItem Header="Quit" Click="OnTrayQuit"/>
+                    </NativeMenu>
+                </TrayIcon.Menu>
+            </TrayIcon>
+        </TrayIcons>
+    </TrayIcon.Icons>
+</Application>

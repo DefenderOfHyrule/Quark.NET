@@ -1,0 +1,76 @@
+<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <LangVersion>13</LangVersion>
+        <InvariantGlobalization>true</InvariantGlobalization>
+        <ApplicationIcon>Assets\icon.ico</ApplicationIcon>
+        <MacOSXBundleIcon>Assets/icon.icns</MacOSXBundleIcon>
+        <SatelliteResourceLanguages>en</SatelliteResourceLanguages>
+        
+        <TrimMode>copyused</TrimMode>
+        <BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+        <AssemblyName>Quark.NET</AssemblyName>
+        <RootNamespace>Quark</RootNamespace>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('Windows')) Or $(RuntimeIdentifier.StartsWith('win'))">
+        <DefineConstants>$(DefineConstants);WINDOWS</DefineConstants>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="$([MSBuild]::IsOSPlatform('OSX')) Or $(RuntimeIdentifier.StartsWith('osx'))">
+        <DefineConstants>$(DefineConstants);MACOS</DefineConstants>
+        <SupportedOSPlatformVersion>12.0</SupportedOSPlatformVersion>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="($([MSBuild]::IsOSPlatform('Linux')) Or $(RuntimeIdentifier.StartsWith('linux'))) And !$(RuntimeIdentifier.StartsWith('osx')) And !$(RuntimeIdentifier.StartsWith('win'))">
+        <DefineConstants>$(DefineConstants);LINUX</DefineConstants>
+    </PropertyGroup>
+
+    <ItemGroup>
+        
+        <PackageReference Include="Avalonia"                   Version="11.2.7" />
+        <PackageReference Include="Avalonia.Desktop"           Version="11.2.7" />
+        <PackageReference Include="Avalonia.Themes.Fluent"     Version="11.2.7" />
+        <PackageReference Include="Avalonia.Fonts.Inter"       Version="11.2.7" />
+        <PackageReference Condition="'$(Configuration)' == 'Debug'"
+                          Include="Avalonia.Diagnostics"       Version="11.2.7" />
+    </ItemGroup>
+
+
+    <ItemGroup Condition="$(RuntimeIdentifier.StartsWith('win')) And !$(RuntimeIdentifier.EndsWith('arm64'))">
+        <Content Include="libs/windows/libusb-quark.dll"
+                 CopyToOutputDirectory="PreserveNewest"
+                 Link="libusb-quark.dll" />
+        <Content Include="libs/windows/libusbK.dll"
+                 CopyToOutputDirectory="PreserveNewest"
+                 Link="libusbK.dll" />
+        <EmbeddedResource Include="libs\windows\quark-wdi.dll"
+                          LogicalName="Quark.quark_wdi.dll" />
+    </ItemGroup>
+
+    <ItemGroup Condition="$(RuntimeIdentifier) == 'win-arm64'">
+        <Content Include="libs/windows/libusb-quark-arm64.dll"
+                 CopyToOutputDirectory="PreserveNewest"
+                 Link="libusb-quark.dll" />
+        <EmbeddedResource Include="libs\windows\quark-wdi-arm64.dll"
+                          LogicalName="Quark.quark_wdi.dll" />
+    </ItemGroup>
+
+    <ItemGroup Condition="$([MSBuild]::IsOSPlatform('Windows')) And '$(RuntimeIdentifier)' == ''">
+        <Content Include="libs/windows/libusb-quark.dll"
+                 CopyToOutputDirectory="PreserveNewest"
+                 Link="libusb-quark.dll" />
+        <Content Include="libs/windows/libusbK.dll"
+                 CopyToOutputDirectory="PreserveNewest"
+                 Link="libusbK.dll" />
+        <EmbeddedResource Include="libs\windows\quark-wdi.dll"
+                          LogicalName="Quark.quark_wdi.dll" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <AvaloniaResource Include="Assets\**" />
+    </ItemGroup>
+</Project>
