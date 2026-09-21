@@ -434,3 +434,32 @@ build/
 build/*
 
 build-releases-test.sh
+
+android/build/*
+android/.idea/*
+android/app/build/*
+android/.gradle/*
+android/.gradle/
+android/local.properties
+
+# Xcode
+ios/*.xcodeproj/xcuserdata/
+ios/*.xcodeproj/project.xcworkspace/xcuserdata/
+ios/DerivedData/
+
+# iOS build output
+ios/**/*.xcarchive
+*.ipa
+ios/packages/*.deb
+
+# macOS
+.DS_Store
+
+ios/.theos/*
+ios2/.theos/*
+ios3/.theos/*
+*.zip
+
+bump-version.sh
+
+*.keystore

@@ -1,0 +1,2 @@
+-keep class io.github.quark.data.** { *; }
+-keep class io.github.quark.proto.** { *; }

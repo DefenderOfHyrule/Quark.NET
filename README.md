@@ -12,13 +12,14 @@ It replaces the original Java stack with a single-file executable requiring no .
 
 You can download the latest release of Quark for your operating system from the [releases](https://github.com/DefenderOfHyrule/Quark.NET/releases/latest) page, refer to the table below for the platform-specific release naming scheme.
 
-| Platform            | Release name           |
-|---------------------|------------------------|
-| Windows x64         | `Quark-win-x64.exe`    |
-| Windows arm64       | `Quark-win-arm64.exe`  |
-| Linux x64           | `Quark-linux-x64`      |
-| Linux arm64         | `Quark-linux-arm64`    |
-| macOS (x64, arm64)  | `Quark-osx.zip`        |
+| Platform                         | Release name           |
+|----------------------------------|------------------------|
+| Windows x64                      | `Quark-win-x64.exe`    |
+| Windows arm64                    | `Quark-win-arm64.exe`  |
+| Linux x64                        | `Quark-linux-x64`      |
+| Linux arm64                      | `Quark-linux-arm64`    |
+| macOS (x64, arm64)               | `Quark-osx.zip`        |
+| Android (x64, x86, armv7, armv8) | `OmniRCM-android.apk`  |
 
 ## Using Quark
 
