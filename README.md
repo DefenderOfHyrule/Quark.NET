@@ -19,7 +19,7 @@ You can download the latest release of Quark for your operating system from the 
 | Linux x64                        | `Quark-linux-x64`      |
 | Linux arm64                      | `Quark-linux-arm64`    |
 | macOS (x64, arm64)               | `Quark-osx.zip`        |
-| Android (x64, x86, armv7, armv8) | `OmniRCM-android.apk`  |
+| Android (x64, x86, armv7, armv8) | `Quark-android.apk`  |
 
 ## Using Quark
 
