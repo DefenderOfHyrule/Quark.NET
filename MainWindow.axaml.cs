@@ -18,7 +18,7 @@ namespace Quark;
 
 public partial class MainWindow : Window
 {
-    private static readonly QuarkVersion CurrentVersion = new(1, 0, 0);
+    private static readonly QuarkVersion CurrentVersion = new(1, 1, 0);
 
     private static Config _cfg = new();
     private static readonly object CfgLock = new();

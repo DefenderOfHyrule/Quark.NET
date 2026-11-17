@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Quark</string>
+
+    <string name="status_idle">Listening for connections…</string>
+    <string name="network_ip_known">Network IP: %1$s</string>
+    <string name="network_ip_unknown">Network IP: unknown</string>
+    <string name="status_usb_single">USB: %1$s</string>
+    <string name="status_usb_multi">USB (%1$d)</string>
+    <string name="status_network_single">Network: %1$s</string>
+    <string name="status_network_multi">Network (%1$d)</string>
+
+    <string name="btn_show_log">Log</string>
+    <string name="btn_toggle_theme">Toggle theme</string>
+    <string name="section_log">Log</string>
+    <string name="btn_clear">Clear</string>
+
+    <string name="tab_content_paths">Content Paths</string>
+    <string name="tab_connections">Connections</string>
+
+    <string name="btn_add_path">+ Add folder</string>
+    <string name="no_paths_label">No content paths added yet. Add a folder so your Switch can browse it.</string>
+    <string name="no_connections_label">No active connections.</string>
+
+    <string name="dialog_name_path_title">Name this folder</string>
+    <string name="dialog_name_path_hint">e.g. Games</string>
+    <string name="dialog_name_path_confirm">Add</string>
+    <string name="dialog_rename_path_title">Rename content path</string>
+    <string name="dialog_rename_path_confirm">Rename</string>
+
+    <string name="server_toggle_label">Server</string>
+    <string name="server_state_running">Running</string>
+    <string name="server_state_stopped">Stopped</string>
+    <string name="autostart_label">Start server automatically</string>
+
+    <string name="btn_credits">Credits</string>
+    <string name="credits_title">About Quark</string>
+    <string name="credits_body">USB and network host for Leaflet, created and designed by DefenderOfHyrule.</string>
+    <string name="credits_github">github.com/DefenderOfHyrule</string>
+    <string name="btn_check_updates">Check for updates</string>
+    <string name="update_checking">Checking for updates…</string>
+    <string name="update_none">You\'re on the latest version.</string>
+    <string name="update_error">Could not check for updates.</string>
+    <string name="update_available_title">Update available</string>
+    <string name="update_available_message">Version %1$s is available (you have %2$s). Download now?</string>
+    <string name="update_download">Download</string>
+    <string name="update_cancel">Cancel</string>
+    <string name="update_install_permission_title">Allow installs from Quark</string>
+    <string name="update_install_permission_message">To install the update, allow Quark to install unknown apps on the next screen, then come back and try again.</string>
+    <string name="update_install_permission_settings">Open settings</string>
+</resources>

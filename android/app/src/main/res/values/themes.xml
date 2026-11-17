@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Quark" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">#E8590C</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorPrimaryContainer">#FFDBC8</item>
+        <item name="colorOnPrimaryContainer">#331100</item>
+        <item name="colorSecondary">#9C4221</item>
+        <item name="colorOnSecondary">#FFFFFF</item>
+        <item name="colorSecondaryContainer">#FFDACD</item>
+        <item name="colorOnSecondaryContainer">#3A0900</item>
+        <item name="colorSurface">#FFF8F5</item>
+        <item name="colorOnSurface">#271812</item>
+        <item name="colorSurfaceVariant">#F3E0D5</item>
+        <item name="colorOnSurfaceVariant">#857063</item>
+    </style>
+
+    <style name="Theme.Quark.Invisible" parent="Theme.Quark">
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
+</resources>
